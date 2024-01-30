@@ -1,6 +1,6 @@
 import IMP.core
 import IMP.atom
-import IMP.scratch
+import IMP.custom
 import time
 
 m = IMP.Model()
@@ -23,7 +23,7 @@ for i in range(n_particles):
 sf = IMP.core.RestraintsScoringFunction([IMP.container.PairsRestraint(
                                                          pairscore, lpc)])
 print("Initial score:", sf.evaluate(False))
-opt = IMP.scratch.MoveXAndScoreOptimizer(m, ps)
+opt = IMP.custom.MoveXAndScoreOptimizer(m, ps)
 opt.set_scoring_function(sf)
 timestart = time.time()
 opt.optimize(1000)
