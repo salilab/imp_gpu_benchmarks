@@ -1,1 +1,5 @@
 cpp_cpu
+custom/fast
+custom/release
+fast.sh
+release.sh
