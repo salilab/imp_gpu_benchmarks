@@ -10,17 +10,17 @@ Fast build: 9.81s
 Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays: 6.17s
 
 With custom optimizer that scores using raw sphere data plus pi array
-(imp_hdps_with_score.py), fast build: 5.69s
+(imp_hdps_with_score.py), fast build: 6.03s
 
 With regular optimizer but custom scoring function that scores using raw
 sphere data plus pi array
-(imp_hdps_custom_scoring.py), fast build: 5.71s
+(imp_hdps_custom_scoring.py), fast build: 6.03s
 
 With regular optimizer and scoring function but custom restraint that scores
 using raw sphere data plus pi array
-(imp_hdps_custom_restraint.py), fast build: 5.71s
+(imp_hdps_custom_restraint.py), fast build: 6.02s
 
-With custom paire score that scores using raw sphere data plus ppair array
+With custom pair score that scores using raw sphere data plus ppair array
 (imp_hdps_custom_pair_score.py), fast build: 6.39s
 
 

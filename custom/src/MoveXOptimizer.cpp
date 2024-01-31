@@ -57,9 +57,11 @@ double our_evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   double score = 0.;
   unsigned n_particles = pis.size();
   for (unsigned i = 0; i < n_particles; ++i) {
-    algebra::Sphere3D *si = spheres + i;
+    unsigned pi = pis[i].get_index();
+    algebra::Sphere3D *si = spheres + pi;
     for (unsigned j = i + 1; j < n_particles; ++j) {
-      algebra::Sphere3D *sj = spheres + j;
+      unsigned pj = pis[j].get_index();
+      algebra::Sphere3D *sj = spheres + pj;
 
       double dx = (*sj)[0] - (*si)[0];
       double dy = (*sj)[1] - (*si)[1];
