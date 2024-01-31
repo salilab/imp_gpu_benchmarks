@@ -70,6 +70,26 @@ double our_evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   }
   return score;
 }
+
+double our_evaluate_pairs(algebra::Sphere3D *spheres,
+                          const ParticleIndexPairs &ppis,
+                          unsigned lower_bound, unsigned upper_bound) {
+  static const double mean = 2.0;
+  static const double force = 0.1;
+  double score = 0.;
+  for (unsigned i = lower_bound; i < upper_bound; ++i) {
+    unsigned pi = ppis[i][0].get_index();
+    unsigned pj = ppis[i][1].get_index();
+    algebra::Sphere3D *si = spheres + pi;
+    algebra::Sphere3D *sj = spheres + pj;
+    double dx = (*sj)[0] - (*si)[0];
+    double dy = (*sj)[1] - (*si)[1];
+    double dz = (*sj)[2] - (*si)[2];
+    double r = sqrt((dx*dx) + (dy*dy) + (dz*dz));
+    score += 0.5 * force * (r - mean) * (r - mean);
+  }
+  return score;
+}
 } // namespace
 
 Float MoveXAndScoreOptimizer::do_optimize(unsigned int max_steps) {
@@ -123,6 +143,53 @@ void CustomRestraint::do_add_score_and_derivatives(ScoreAccumulator sa) const {
   IMP::Model *m = get_model();
   algebra::Sphere3D *spheres = m->access_spheres_data();
   sa.add_score(our_evaluate(spheres, pis_));
+}
+
+double CustomPairScore::evaluate_index(Model *m, const ParticleIndexPair& vt,
+                        DerivativeAccumulator *da) const {
+  std::cerr << "No implementation" << std::endl;
+  return 0.;
+}
+
+double CustomPairScore::evaluate_indexes(Model *m, const ParticleIndexPairs &o,
+                          DerivativeAccumulator *da,
+                          unsigned int lower_bound,
+                          unsigned int upper_bound) const {
+  algebra::Sphere3D *spheres = m->access_spheres_data();
+  return our_evaluate_pairs(spheres, o, lower_bound, upper_bound);
+}
+
+double CustomPairScore::evaluate_indexes_scores(
+                        Model *m, const ParticleIndexPairs &o,
+                        DerivativeAccumulator *da,
+                        unsigned int lower_bound,
+                        unsigned int upper_bound,
+                        std::vector<double> &score) const {
+  std::cerr << "No implementation" << std::endl;
+  return 0.;
+}
+
+double CustomPairScore::evaluate_indexes_delta(
+                        Model *m, const ParticleIndexPairs &o,
+                        DerivativeAccumulator *da,
+                        const std::vector<unsigned> &indexes,
+                        std::vector<double> &score) const {
+  std::cerr << "No implementation" << std::endl;
+  return 0.;
+}
+
+double CustomPairScore::evaluate_if_good_indexes(Model *m,
+                        const ParticleIndexPairs &o,
+                        DerivativeAccumulator *da, double max,
+                        unsigned int lower_bound,
+                        unsigned int upper_bound) const {
+  std::cerr << "No implementation" << std::endl;
+  return 0.;
+}
+
+ModelObjectsTemp CustomPairScore::do_get_inputs(
+    Model *m, const ParticleIndexes &pis) const {
+  return get_particles(m, pis);
 }
 
 IMPCUSTOM_END_NAMESPACE

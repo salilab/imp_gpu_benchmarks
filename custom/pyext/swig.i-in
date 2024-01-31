@@ -9,4 +9,5 @@ IMP_SWIG_OBJECT(IMP::custom, MoveXOptimizer, MoveXOptimizers);
 IMP_SWIG_OBJECT(IMP::custom, MoveXAndScoreOptimizer, MoveXAndScoreOptimizers);
 IMP_SWIG_OBJECT(IMP::custom, CustomScoringFunction, CustomScoringFunctions);
 IMP_SWIG_OBJECT(IMP::custom, CustomRestraint, CustomRestraints);
+IMP_SWIG_OBJECT(IMP::custom, CustomPairScore, CustomPairScores);
 %include "IMP/custom/MoveXOptimizer.h"

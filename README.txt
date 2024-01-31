@@ -20,6 +20,9 @@ With regular optimizer and scoring function but custom restraint that scores
 using raw sphere data plus pi array
 (imp_hdps_custom_restraint.py), fast build: 5.71s
 
+With custom paire score that scores using raw sphere data plus ppair array
+(imp_hdps_custom_pair_score.py), fast build: 6.39s
+
 
 TODO
 - Try pure C++ implementation using GPU
