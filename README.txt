@@ -22,6 +22,7 @@ using raw sphere data plus pi array
 
 With custom pair score that scores using raw sphere data plus ppair array
 (imp_hdps_custom_pair_score.py), fast build: 6.39s
+(double loop, ignoring ppairs: 5.63s)
 
 
 TODO
