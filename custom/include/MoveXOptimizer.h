@@ -4,6 +4,7 @@
 #include <IMP/custom/custom_config.h>
 
 #include <IMP/Optimizer.h>
+#include <IMP/ScoringFunction.h>
 
 IMPCUSTOM_BEGIN_NAMESPACE
 
@@ -35,6 +36,21 @@ class IMPCUSTOMEXPORT MoveXAndScoreOptimizer : public Optimizer {
  private:
   ParticleIndexes pis_;
 
+};
+
+class IMPCUSTOMEXPORT CustomScoringFunction : public ScoringFunction {
+ public:
+  CustomScoringFunction(Model *m, ParticleIndexes pis);
+
+  virtual ModelObjectsTemp do_get_inputs() const override;
+  virtual void do_add_score_and_derivatives(ScoreAccumulator sa,
+                                            const ScoreStatesTemp &ss) override;
+  virtual Restraints create_restraints() const;
+
+  IMP_OBJECT_METHODS(CustomScoringFunction);
+
+ private:
+  ParticleIndexes pis_;
 };
 
 IMPCUSTOM_END_NAMESPACE

@@ -12,10 +12,13 @@ Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays: 6.17s
 With custom optimizer that scores using raw sphere data plus pi array
 (imp_hdps_with_score.py), fast build: 5.69s
 
+With regular optimizer but custom scoring function that scores using raw
+sphere data plus pi array
+(imp_hdps_custom_scoring.py), fast build: 5.71s
 
 
 TODO
 - Try pure C++ implementation using GPU
 - Replace harmonic restraints with crosslink restraints
-- Replace custom optimizer with custom ScoringFunction, custom Restraint
+- Replace custom optimizer with custom Restraint
 - Replace raw sphere data with XYZ decorator

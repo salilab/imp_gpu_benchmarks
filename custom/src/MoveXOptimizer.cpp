@@ -50,7 +50,8 @@ ModelObjectsTemp MoveXAndScoreOptimizer::do_get_inputs() const {
   return objs;
 }
 
-double evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
+namespace {
+double our_evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   static const double mean = 2.0;
   static const double force = 0.1;
   double score = 0.;
@@ -69,6 +70,7 @@ double evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   }
   return score;
 }
+} // namespace
 
 Float MoveXAndScoreOptimizer::do_optimize(unsigned int max_steps) {
   IMP_OBJECT_LOG;
@@ -79,7 +81,7 @@ Float MoveXAndScoreOptimizer::do_optimize(unsigned int max_steps) {
   algebra::Sphere3D *spheres = m->access_spheres_data();
   double score = 0.;
   for (unsigned step = 0; step < max_steps; ++step) {
-    score = evaluate(spheres, pis_);
+    score = our_evaluate(spheres, pis_);
     for (unsigned p = 0; p < pis_.size(); ++p) {
       if (p % 2 == 0) {
         spheres[pis_[p].get_index()][0] += 0.01;
@@ -89,6 +91,25 @@ Float MoveXAndScoreOptimizer::do_optimize(unsigned int max_steps) {
     }
   }
   return score;
+}
+
+CustomScoringFunction::CustomScoringFunction(Model *m, ParticleIndexes pis)
+        : ScoringFunction(m, "CustomScoringFunction"), pis_(pis) {}
+
+ModelObjectsTemp CustomScoringFunction::do_get_inputs() const {
+  return get_particles(get_model(), pis_);
+}
+
+void CustomScoringFunction::do_add_score_and_derivatives(ScoreAccumulator sa,
+                                            const ScoreStatesTemp &ss) {
+  IMP::Model *m = get_model();
+  algebra::Sphere3D *spheres = m->access_spheres_data();
+  sa.add_score(our_evaluate(spheres, pis_));
+}
+
+Restraints CustomScoringFunction::create_restraints() const {
+  Restraints x;
+  return x;
 }
 
 IMPCUSTOM_END_NAMESPACE
