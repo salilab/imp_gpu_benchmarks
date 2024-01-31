@@ -79,17 +79,16 @@ double our_evaluate_pairs(algebra::Sphere3D *spheres,
   static const double mean = 2.0;
   static const double force = 0.1;
   double score = 0.;
-  unsigned n_particles = 2000;
-  for (unsigned i = 0; i < n_particles; ++i) {
-    algebra::Sphere3D *si = spheres + i;
-    for (unsigned j = i + 1; j < n_particles; ++j) {
-      algebra::Sphere3D *sj = spheres + j;
+  for (unsigned i = lower_bound; i < upper_bound; ++i) {
+    unsigned pi = ppis[i][0].get_index();
+    unsigned pj = ppis[i][1].get_index();
+    algebra::Sphere3D *si = spheres + pi;
+    algebra::Sphere3D *sj = spheres + pj;
     double dx = (*sj)[0] - (*si)[0];
     double dy = (*sj)[1] - (*si)[1];
     double dz = (*sj)[2] - (*si)[2];
     double r = sqrt((dx*dx) + (dy*dy) + (dz*dz));
     score += 0.5 * force * (r - mean) * (r - mean);
-  }
   }
   return score;
 }
