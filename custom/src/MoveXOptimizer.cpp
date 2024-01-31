@@ -112,4 +112,17 @@ Restraints CustomScoringFunction::create_restraints() const {
   return x;
 }
 
+CustomRestraint::CustomRestraint(Model *m, ParticleIndexes pis)
+        : Restraint(m, "CustomRestraint"), pis_(pis) {}
+
+ModelObjectsTemp CustomRestraint::do_get_inputs() const {
+  return get_particles(get_model(), pis_);
+}
+
+void CustomRestraint::do_add_score_and_derivatives(ScoreAccumulator sa) const {
+  IMP::Model *m = get_model();
+  algebra::Sphere3D *spheres = m->access_spheres_data();
+  sa.add_score(our_evaluate(spheres, pis_));
+}
+
 IMPCUSTOM_END_NAMESPACE

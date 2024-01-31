@@ -16,9 +16,12 @@ With regular optimizer but custom scoring function that scores using raw
 sphere data plus pi array
 (imp_hdps_custom_scoring.py), fast build: 5.71s
 
+With regular optimizer and scoring function but custom restraint that scores
+using raw sphere data plus pi array
+(imp_hdps_custom_restraint.py), fast build: 5.71s
+
 
 TODO
 - Try pure C++ implementation using GPU
 - Replace harmonic restraints with crosslink restraints
-- Replace custom optimizer with custom Restraint
 - Replace raw sphere data with XYZ decorator
