@@ -73,21 +73,16 @@ double our_evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   return score;
 }
 
-double our_evaluate_pairs(algebra::Sphere3D *spheres,
+double our_evaluate_pairs(Model *m, algebra::Sphere3D *spheres,
                           const ParticleIndexPairs &ppis,
                           unsigned lower_bound, unsigned upper_bound) {
   static const double mean = 2.0;
   static const double force = 0.1;
   double score = 0.;
   for (unsigned i = lower_bound; i < upper_bound; ++i) {
-    unsigned pi = ppis[i][0].get_index();
-    unsigned pj = ppis[i][1].get_index();
-    algebra::Sphere3D *si = spheres + pi;
-    algebra::Sphere3D *sj = spheres + pj;
-    double dx = (*sj)[0] - (*si)[0];
-    double dy = (*sj)[1] - (*si)[1];
-    double dz = (*sj)[2] - (*si)[2];
-    double r = sqrt((dx*dx) + (dy*dy) + (dz*dz));
+    core::XYZ di(m, ppis[i][0]);
+    core::XYZ dj(m, ppis[i][1]);
+    double r = (di.get_coordinates() - dj.get_coordinates()).get_magnitude();
     score += 0.5 * force * (r - mean) * (r - mean);
   }
   return score;
@@ -158,7 +153,7 @@ double CustomPairScore::evaluate_indexes(Model *m, const ParticleIndexPairs &o,
                           unsigned int lower_bound,
                           unsigned int upper_bound) const {
   algebra::Sphere3D *spheres = m->access_spheres_data();
-  return our_evaluate_pairs(spheres, o, lower_bound, upper_bound);
+  return our_evaluate_pairs(m, spheres, o, lower_bound, upper_bound);
 }
 
 double CustomPairScore::evaluate_indexes_scores(
