@@ -7,6 +7,7 @@ With IMP.core.HarmonicDistancePairScore and IMP.container.ListPairContainer
 Release build: 16.78s
   (with std::get to read ParticleIndexPair, ~11.5s)
   (with Vector3D uninitialized check moved to internal, 10.0s)
+  (with Vector3D compatible check moved to compile time, 9.87s)
 Fast build: 9.81s
 
 Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays: 6.17s
