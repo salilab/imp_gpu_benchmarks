@@ -5,6 +5,8 @@ System setup: 2000 XYZ particles; all-against-all harmonic distance restraints;
 With IMP.core.HarmonicDistancePairScore and IMP.container.ListPairContainer
 (imp_hdps.py)
 Release build: 16.78s
+  (with std::get to read ParticleIndexPair, ~11.5s)
+  (with Vector3D uninitialized check moved to internal, 10.0s)
 Fast build: 9.81s
 
 Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays: 6.17s
