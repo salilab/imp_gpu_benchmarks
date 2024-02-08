@@ -30,6 +30,7 @@ With custom pair score that scores using raw sphere data plus ppair array
 (double loop, ignoring ppairs: 5.63s)
 (using decorators: 7.88s)
 (using decorators, release mode: 7.79s)
+(using decorators just to get particle indexes, fast build: 6.38s)
 
 
 TODO
