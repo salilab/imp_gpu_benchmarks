@@ -33,6 +33,7 @@ With custom pair score that scores using raw sphere data plus ppair array
 (using decorators just to get particle indexes, fast build: 6.38s)
 (using decorators and get_coordinates(), fast build: 6.55s)
 (using decorators and Vector3d::operator-, fast build: 7.69s)
+(using operator-= and our own copy, fast build: 8.10s)
 
 
 TODO
