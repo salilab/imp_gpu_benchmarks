@@ -10,7 +10,9 @@ Release build: 16.78s
   (with Vector3D compatible check moved to compile time, 9.87s)
 Fast build: 9.81s
 
-Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays: 6.17s
+Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays (double loop): 6.17s
+
+Pure C++ implementation (cpp_cpu_ppair) using x,y,z,ppair arrays (single loop): 6.44s
 
 With custom optimizer that scores using raw sphere data plus pi array
 (imp_hdps_with_score.py), fast build: 6.03s
