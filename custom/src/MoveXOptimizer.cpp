@@ -82,11 +82,7 @@ double our_evaluate_pairs(Model *m, algebra::Sphere3D *spheres,
   for (unsigned i = lower_bound; i < upper_bound; ++i) {
     core::XYZ di(m, std::get<0>(ppis[i]));
     core::XYZ dj(m, std::get<1>(ppis[i]));
-    const algebra::Vector3D &vi = di.get_coordinates();
-    const algebra::Vector3D &vj = dj.get_coordinates();
-    algebra::Vector3D vd(vj);
-    vd -= vi;
-    double r = vd.get_magnitude();
+    double r = di.get_coordinates().get_distance(dj.get_coordinates());
     score += 0.5 * force * (r - mean) * (r - mean);
   }
   return score;
