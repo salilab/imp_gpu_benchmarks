@@ -82,13 +82,11 @@ double our_evaluate_pairs(Model *m, algebra::Sphere3D *spheres,
   for (unsigned i = lower_bound; i < upper_bound; ++i) {
     core::XYZ di(m, std::get<0>(ppis[i]));
     core::XYZ dj(m, std::get<1>(ppis[i]));
-    unsigned pi = di.get_particle_index().get_index();
-    unsigned pj = dj.get_particle_index().get_index();
-    algebra::Sphere3D *si = spheres + pi;
-    algebra::Sphere3D *sj = spheres + pj;
-    double dx = (*sj)[0] - (*si)[0];
-    double dy = (*sj)[1] - (*si)[1];
-    double dz = (*sj)[2] - (*si)[2];
+    const algebra::Vector3D &vi = di.get_coordinates();
+    const algebra::Vector3D &vj = dj.get_coordinates();
+    double dx = vj[0] - vi[0];
+    double dy = vj[1] - vi[1];
+    double dz = vj[2] - vi[2];
     double r = sqrt((dx*dx) + (dy*dy) + (dz*dz));
     score += 0.5 * force * (r - mean) * (r - mean);
   }
