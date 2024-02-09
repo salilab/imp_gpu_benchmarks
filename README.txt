@@ -35,6 +35,7 @@ With custom pair score that scores using raw sphere data plus ppair array
 (using decorators and Vector3d::operator-, fast build: 7.69s)
 (using operator-= and our own copy, fast build: 8.10s)
 (using VectorBaseD::get_distance(), fast build: 6.80s)
+(using get_distance() and ::evaluate_index(), fast: 7.00s)
 
 
 TODO

@@ -73,8 +73,7 @@ double our_evaluate(algebra::Sphere3D *spheres, const ParticleIndexes &pis) {
   return score;
 }
 
-double our_evaluate_pairs(Model *m, algebra::Sphere3D *spheres,
-                          const ParticleIndexPairs &ppis,
+double our_evaluate_pairs(Model *m, const ParticleIndexPairs &ppis,
                           unsigned lower_bound, unsigned upper_bound) {
   static const double mean = 2.0;
   static const double force = 0.1;
@@ -144,44 +143,12 @@ void CustomRestraint::do_add_score_and_derivatives(ScoreAccumulator sa) const {
 
 double CustomPairScore::evaluate_index(Model *m, const ParticleIndexPair& vt,
                         DerivativeAccumulator *da) const {
-  std::cerr << "No implementation" << std::endl;
-  return 0.;
-}
-
-double CustomPairScore::evaluate_indexes(Model *m, const ParticleIndexPairs &o,
-                          DerivativeAccumulator *da,
-                          unsigned int lower_bound,
-                          unsigned int upper_bound) const {
-  algebra::Sphere3D *spheres = m->access_spheres_data();
-  return our_evaluate_pairs(m, spheres, o, lower_bound, upper_bound);
-}
-
-double CustomPairScore::evaluate_indexes_scores(
-                        Model *m, const ParticleIndexPairs &o,
-                        DerivativeAccumulator *da,
-                        unsigned int lower_bound,
-                        unsigned int upper_bound,
-                        std::vector<double> &score) const {
-  std::cerr << "No implementation" << std::endl;
-  return 0.;
-}
-
-double CustomPairScore::evaluate_indexes_delta(
-                        Model *m, const ParticleIndexPairs &o,
-                        DerivativeAccumulator *da,
-                        const std::vector<unsigned> &indexes,
-                        std::vector<double> &score) const {
-  std::cerr << "No implementation" << std::endl;
-  return 0.;
-}
-
-double CustomPairScore::evaluate_if_good_indexes(Model *m,
-                        const ParticleIndexPairs &o,
-                        DerivativeAccumulator *da, double max,
-                        unsigned int lower_bound,
-                        unsigned int upper_bound) const {
-  std::cerr << "No implementation" << std::endl;
-  return 0.;
+  static const double mean = 2.0;
+  static const double force = 0.1;
+  core::XYZ di(m, std::get<0>(vt));
+  core::XYZ dj(m, std::get<1>(vt));
+  double r = di.get_coordinates().get_distance(dj.get_coordinates());
+  return 0.5 * force * (r - mean) * (r - mean);
 }
 
 ModelObjectsTemp CustomPairScore::do_get_inputs(
