@@ -7,14 +7,14 @@ static const unsigned n_particles = 2000;
 
 double evaluate(std::vector<double> &x, std::vector<double> &y,
                 std::vector<double> &z,
-                std::vector<std::pair<unsigned, unsigned> > &ppairs) {
+                std::vector<unsigned> &ppairs) {
   static const double mean = 2.0;
   static const double force = 0.1;
   double score = 0.;
-  for (unsigned i = 0; i < ppairs.size(); ++i) {
-    double dx = x[ppairs[i].first] - x[ppairs[i].second];
-    double dy = y[ppairs[i].first] - y[ppairs[i].second];
-    double dz = z[ppairs[i].first] - z[ppairs[i].second];
+  for (unsigned i = 0; i < ppairs.size(); i += 2) {
+    double dx = x[ppairs[i]] - x[ppairs[i+1]];
+    double dy = y[ppairs[i]] - y[ppairs[i+1]];
+    double dz = z[ppairs[i]] - z[ppairs[i+1]];
     double r = sqrt((dx*dx) + (dy*dy) + (dz*dz));
     score += 0.5 * force * (r - mean) * (r - mean);
   }
@@ -23,7 +23,7 @@ double evaluate(std::vector<double> &x, std::vector<double> &y,
 
 double optimize(unsigned max_steps, std::vector<double> &x,
                 std::vector<double> &y, std::vector<double> &z,
-                std::vector<std::pair<unsigned, unsigned> > &ppairs) {
+                std::vector<unsigned> &ppairs) {
   double score = 0.;
   for (unsigned step = 0; step < max_steps; ++step) {
     score = evaluate(x, y, z, ppairs);
@@ -42,7 +42,7 @@ int main() {
   std::vector<double> x(n_particles);
   std::vector<double> y(n_particles);
   std::vector<double> z(n_particles);
-  std::vector<std::pair<unsigned, unsigned> > ppairs(n_particles * (n_particles - 1) / 2);
+  std::vector<unsigned> ppairs(n_particles * (n_particles - 1));
 
   for (unsigned i = 0; i < n_particles; ++i) {
     x[i] = 0.01 * i;
@@ -53,7 +53,8 @@ int main() {
   unsigned ppi = 0;
   for (unsigned i = 0; i < n_particles; ++i) {
     for (unsigned j = i + 1; j < n_particles; ++j) {
-      ppairs[ppi++] = std::make_pair(i, j);
+      ppairs[ppi++] = i;
+      ppairs[ppi++] = j;
     }
   }
 
