@@ -41,4 +41,4 @@ With custom pair score that scores using raw sphere data plus ppair array
 TODO
 - Try pure C++ implementation using GPU
 - Replace harmonic restraints with crosslink restraints
-- Replace raw sphere data with XYZ decorator
+- Rewrite score_functor DistancePairScore.h to use VectorBaseD::get_distance()
