@@ -1,5 +1,6 @@
 cpp_cpu
 cpp_cpu_ppair
+cpp_gpu_ppair
 custom/fast
 custom/release
 fast.sh

@@ -15,6 +15,8 @@ Pure C++ implementation (cpp_cpu) using x,y,z,pi arrays (double loop): 6.17s
 Pure C++ implementation (cpp_cpu_ppair) using x,y,z,ppair(pair) arrays (single loop): 6.44s
 Pure C++ implementation (cpp_cpu_ppair) using x,y,z,ppair arrays (single loop): 6.36s
 
+C++ GPU implementation (cpp_gpu_ppair): 0.34s
+
 With custom optimizer that scores using raw sphere data plus pi array
 (imp_hdps_with_score.py), fast build: 6.03s
 
