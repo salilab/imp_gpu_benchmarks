@@ -41,6 +41,13 @@ With custom pair score that scores using raw sphere data plus ppair array
 (using get_distance() and ::evaluate_index(), fast: 7.00s)
 
 
+Crosslinking/connectivity example:
+2000 XYZ particles; 1999 particle to next particle harmonic distance restraints;
+1,000,000 optimization steps
+Release build (imp_xl.py): 14.94s
+C++ GPU implementation (cpp_gpu_xl): 13.93s
+
+
 TODO
 - Try pure C++ implementation using GPU
 - Replace harmonic restraints with crosslink restraints

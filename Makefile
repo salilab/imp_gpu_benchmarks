@@ -1,4 +1,4 @@
-ALL: cpp_cpu cpp_cpu_ppair cpp_gpu_ppair
+ALL: cpp_cpu cpp_cpu_ppair cpp_gpu_ppair cpp_gpu_xl
 
 cpp_cpu: cpp_cpu.cpp
 	g++ -Wall -O3 cpp_cpu.cpp -o cpp_cpu
@@ -8,3 +8,6 @@ cpp_cpu_ppair: cpp_cpu_ppair.cpp
 
 cpp_gpu_ppair: cpp_gpu_ppair.cu
 	nvcc -O3 cpp_gpu_ppair.cu -o cpp_gpu_ppair
+
+cpp_gpu_xl: cpp_gpu_xl.cu
+	nvcc -O3 cpp_gpu_xl.cu -o cpp_gpu_xl
