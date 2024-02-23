@@ -46,6 +46,7 @@ Crosslinking/connectivity example:
 1,000,000 optimization steps
 Release build (imp_xl.py): 14.94s
 C++ GPU implementation (cpp_gpu_xl): 13.93s
+C++ GPU implementation with GPU optimizer (cpp_gpu_xl_md): 4.62s
 
 
 TODO

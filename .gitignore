@@ -2,6 +2,7 @@ cpp_cpu
 cpp_cpu_ppair
 cpp_gpu_ppair
 cpp_gpu_xl
+cpp_gpu_xl_md
 custom/fast
 custom/release
 fast.sh
