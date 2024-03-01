@@ -50,6 +50,5 @@ C++ GPU implementation with GPU optimizer (cpp_gpu_xl_md): 4.62s
 
 
 TODO
-- Try pure C++ implementation using GPU
 - Replace harmonic restraints with crosslink restraints
 - Rewrite score_functor DistancePairScore.h to use VectorBaseD::get_distance()
